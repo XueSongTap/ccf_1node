@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/yxc/catkin_ws3/src/yesense_driver/src/serial/serial.c
+serial.h
+/home/yxc/catkin_ws3/src/yesense_driver/src/serial/serial.h
+stdio.h
+-
+unistd.h
+-
+fcntl.h
+-
+errno.h
+-
+
+/home/yxc/catkin_ws3/src/yesense_driver/src/serial/serial.h
+stddef.h
+-
+Windows.h
+-
+termios.h
+-
+
