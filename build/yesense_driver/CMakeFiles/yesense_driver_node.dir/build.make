@@ -81,9 +81,33 @@ yesense_driver/CMakeFiles/yesense_driver_node.dir/src/serial/serial.c.o.provides
 yesense_driver/CMakeFiles/yesense_driver_node.dir/src/serial/serial.c.o.provides.build: yesense_driver/CMakeFiles/yesense_driver_node.dir/src/serial/serial.c.o
 
 
+yesense_driver/CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.o: yesense_driver/CMakeFiles/yesense_driver_node.dir/flags.make
+yesense_driver/CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.o: /home/yxc/catkin_ws3/src/yesense_driver/src/six_axis_comp_filter/six_axis_comp_filter.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/yxc/catkin_ws3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object yesense_driver/CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.o"
+	cd /home/yxc/catkin_ws3/build/yesense_driver && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.o -c /home/yxc/catkin_ws3/src/yesense_driver/src/six_axis_comp_filter/six_axis_comp_filter.cpp
+
+yesense_driver/CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.i"
+	cd /home/yxc/catkin_ws3/build/yesense_driver && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/yxc/catkin_ws3/src/yesense_driver/src/six_axis_comp_filter/six_axis_comp_filter.cpp > CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.i
+
+yesense_driver/CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.s"
+	cd /home/yxc/catkin_ws3/build/yesense_driver && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/yxc/catkin_ws3/src/yesense_driver/src/six_axis_comp_filter/six_axis_comp_filter.cpp -o CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.s
+
+yesense_driver/CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.o.requires:
+
+.PHONY : yesense_driver/CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.o.requires
+
+yesense_driver/CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.o.provides: yesense_driver/CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.o.requires
+	$(MAKE) -f yesense_driver/CMakeFiles/yesense_driver_node.dir/build.make yesense_driver/CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.o.provides.build
+.PHONY : yesense_driver/CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.o.provides
+
+yesense_driver/CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.o.provides.build: yesense_driver/CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.o
+
+
 yesense_driver/CMakeFiles/yesense_driver_node.dir/src/yesense_driver_node.cpp.o: yesense_driver/CMakeFiles/yesense_driver_node.dir/flags.make
 yesense_driver/CMakeFiles/yesense_driver_node.dir/src/yesense_driver_node.cpp.o: /home/yxc/catkin_ws3/src/yesense_driver/src/yesense_driver_node.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/yxc/catkin_ws3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object yesense_driver/CMakeFiles/yesense_driver_node.dir/src/yesense_driver_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/yxc/catkin_ws3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object yesense_driver/CMakeFiles/yesense_driver_node.dir/src/yesense_driver_node.cpp.o"
 	cd /home/yxc/catkin_ws3/build/yesense_driver && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/yesense_driver_node.dir/src/yesense_driver_node.cpp.o -c /home/yxc/catkin_ws3/src/yesense_driver/src/yesense_driver_node.cpp
 
 yesense_driver/CMakeFiles/yesense_driver_node.dir/src/yesense_driver_node.cpp.i: cmake_force
@@ -108,12 +132,14 @@ yesense_driver/CMakeFiles/yesense_driver_node.dir/src/yesense_driver_node.cpp.o.
 # Object files for target yesense_driver_node
 yesense_driver_node_OBJECTS = \
 "CMakeFiles/yesense_driver_node.dir/src/serial/serial.c.o" \
+"CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.o" \
 "CMakeFiles/yesense_driver_node.dir/src/yesense_driver_node.cpp.o"
 
 # External object files for target yesense_driver_node
 yesense_driver_node_EXTERNAL_OBJECTS =
 
 /home/yxc/catkin_ws3/devel/lib/yesense_driver/yesense_driver_node: yesense_driver/CMakeFiles/yesense_driver_node.dir/src/serial/serial.c.o
+/home/yxc/catkin_ws3/devel/lib/yesense_driver/yesense_driver_node: yesense_driver/CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.o
 /home/yxc/catkin_ws3/devel/lib/yesense_driver/yesense_driver_node: yesense_driver/CMakeFiles/yesense_driver_node.dir/src/yesense_driver_node.cpp.o
 /home/yxc/catkin_ws3/devel/lib/yesense_driver/yesense_driver_node: yesense_driver/CMakeFiles/yesense_driver_node.dir/build.make
 /home/yxc/catkin_ws3/devel/lib/yesense_driver/yesense_driver_node: /opt/ros/melodic/lib/libroscpp.so
@@ -135,7 +161,7 @@ yesense_driver_node_EXTERNAL_OBJECTS =
 /home/yxc/catkin_ws3/devel/lib/yesense_driver/yesense_driver_node: /usr/lib/x86_64-linux-gnu/libpthread.so
 /home/yxc/catkin_ws3/devel/lib/yesense_driver/yesense_driver_node: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
 /home/yxc/catkin_ws3/devel/lib/yesense_driver/yesense_driver_node: yesense_driver/CMakeFiles/yesense_driver_node.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/yxc/catkin_ws3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable /home/yxc/catkin_ws3/devel/lib/yesense_driver/yesense_driver_node"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/yxc/catkin_ws3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable /home/yxc/catkin_ws3/devel/lib/yesense_driver/yesense_driver_node"
 	cd /home/yxc/catkin_ws3/build/yesense_driver && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/yesense_driver_node.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -144,6 +170,7 @@ yesense_driver/CMakeFiles/yesense_driver_node.dir/build: /home/yxc/catkin_ws3/de
 .PHONY : yesense_driver/CMakeFiles/yesense_driver_node.dir/build
 
 yesense_driver/CMakeFiles/yesense_driver_node.dir/requires: yesense_driver/CMakeFiles/yesense_driver_node.dir/src/serial/serial.c.o.requires
+yesense_driver/CMakeFiles/yesense_driver_node.dir/requires: yesense_driver/CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.o.requires
 yesense_driver/CMakeFiles/yesense_driver_node.dir/requires: yesense_driver/CMakeFiles/yesense_driver_node.dir/src/yesense_driver_node.cpp.o.requires
 
 .PHONY : yesense_driver/CMakeFiles/yesense_driver_node.dir/requires

@@ -584,6 +584,33 @@ src/serial/serial.c.s:
 	cd /home/yxc/catkin_ws3/build && $(MAKE) -f yesense_driver/CMakeFiles/yesense_driver_node.dir/build.make yesense_driver/CMakeFiles/yesense_driver_node.dir/src/serial/serial.c.s
 .PHONY : src/serial/serial.c.s
 
+src/six_axis_comp_filter/six_axis_comp_filter.o: src/six_axis_comp_filter/six_axis_comp_filter.cpp.o
+
+.PHONY : src/six_axis_comp_filter/six_axis_comp_filter.o
+
+# target to build an object file
+src/six_axis_comp_filter/six_axis_comp_filter.cpp.o:
+	cd /home/yxc/catkin_ws3/build && $(MAKE) -f yesense_driver/CMakeFiles/yesense_driver_node.dir/build.make yesense_driver/CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.o
+.PHONY : src/six_axis_comp_filter/six_axis_comp_filter.cpp.o
+
+src/six_axis_comp_filter/six_axis_comp_filter.i: src/six_axis_comp_filter/six_axis_comp_filter.cpp.i
+
+.PHONY : src/six_axis_comp_filter/six_axis_comp_filter.i
+
+# target to preprocess a source file
+src/six_axis_comp_filter/six_axis_comp_filter.cpp.i:
+	cd /home/yxc/catkin_ws3/build && $(MAKE) -f yesense_driver/CMakeFiles/yesense_driver_node.dir/build.make yesense_driver/CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.i
+.PHONY : src/six_axis_comp_filter/six_axis_comp_filter.cpp.i
+
+src/six_axis_comp_filter/six_axis_comp_filter.s: src/six_axis_comp_filter/six_axis_comp_filter.cpp.s
+
+.PHONY : src/six_axis_comp_filter/six_axis_comp_filter.s
+
+# target to generate assembly for a file
+src/six_axis_comp_filter/six_axis_comp_filter.cpp.s:
+	cd /home/yxc/catkin_ws3/build && $(MAKE) -f yesense_driver/CMakeFiles/yesense_driver_node.dir/build.make yesense_driver/CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.s
+.PHONY : src/six_axis_comp_filter/six_axis_comp_filter.cpp.s
+
 src/yesense_driver_node.o: src/yesense_driver_node.cpp.o
 
 .PHONY : src/yesense_driver_node.o
@@ -653,6 +680,9 @@ help:
 	@echo "... src/serial/serial.o"
 	@echo "... src/serial/serial.i"
 	@echo "... src/serial/serial.s"
+	@echo "... src/six_axis_comp_filter/six_axis_comp_filter.o"
+	@echo "... src/six_axis_comp_filter/six_axis_comp_filter.i"
+	@echo "... src/six_axis_comp_filter/six_axis_comp_filter.s"
 	@echo "... src/yesense_driver_node.o"
 	@echo "... src/yesense_driver_node.i"
 	@echo "... src/yesense_driver_node.s"

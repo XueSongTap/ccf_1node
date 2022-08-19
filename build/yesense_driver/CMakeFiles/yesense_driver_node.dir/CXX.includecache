@@ -14,6 +14,18 @@ Windows.h
 termios.h
 -
 
+/home/yxc/catkin_ws3/src/yesense_driver/src/six_axis_comp_filter/six_axis_comp_filter.cpp
+math.h
+-
+six_axis_comp_filter.h
+/home/yxc/catkin_ws3/src/yesense_driver/src/six_axis_comp_filter/six_axis_comp_filter.h
+iostream
+-
+
+/home/yxc/catkin_ws3/src/yesense_driver/src/six_axis_comp_filter/six_axis_comp_filter.h
+stdint.h
+-
+
 /home/yxc/catkin_ws3/src/yesense_driver/src/yesense_driver_node.cpp
 ros/ros.h
 -
@@ -25,6 +37,8 @@ string
 -
 geometry_msgs/Vector3Stamped.h
 -
+six_axis_comp_filter/six_axis_comp_filter.h
+/home/yxc/catkin_ws3/src/yesense_driver/src/six_axis_comp_filter/six_axis_comp_filter.h
 
 /opt/ros/melodic/include/geometry_msgs/Quaternion.h
 string

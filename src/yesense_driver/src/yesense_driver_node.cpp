@@ -3,7 +3,7 @@
 #include "serial/serial.h"
 #include <string>
 #include <geometry_msgs/Vector3Stamped.h>
-
+#include "six_axis_comp_filter/six_axis_comp_filter.h"
 //imu message 没有euler data ，使用 vector3stamped, 带时间， x,y, z 三个数据
 /*
 
@@ -16,6 +16,7 @@ Vector3 vector
 
 ros::Publisher IMU_pub;
 ros::Publisher Euler_pub;
+ros::Publisher Euler_comp_filter_pub;
 /*
 数据类型 数据 ID 长度 内容
 加速度 0x10 12 DATA1 – DATA12
@@ -196,13 +197,15 @@ size_t yesense_process(const unsigned char * buf, size_t len){
 
     sensor_msgs::Imu imumsg;
     geometry_msgs::Vector3Stamped eulermsg;
+    geometry_msgs::Vector3Stamped eulermsg_comp_filter;
 
     imumsg.header.frame_id = "imu";
     eulermsg.header.frame_id = "imu";
 
     imumsg.header.stamp = imuT;
     eulermsg.header.stamp = imuT;
-    
+    eulermsg_comp_filter.header.stamp = imuT;
+
 
     imumsg.linear_acceleration.x = (double)y_msg.accel->ax_e6*1e-6;
     imumsg.linear_acceleration.y = (double)y_msg.accel->ay_e6*1e-6;
@@ -227,9 +230,55 @@ size_t yesense_process(const unsigned char * buf, size_t len){
     eulermsg.vector.y = (double)y_msg.euler->roll_e6 * 1e-6;
     eulermsg.vector.z = (double)y_msg.euler->yaw_e6 * 1e-6;
 
+    /*
+
+    struct yesense_euler {
+        int32_t pitch_e6;
+        int32_t roll_e6;
+        int32_t yaw_e6;
+    };
+    */
+
+    struct yesense_euler euler_comp_filter_data;
+       
+    //Todo
+    float delteTime = 1/400;
+    float tau = 0.06;
+    CompSixAxis cf(delteTime,tau);
+    // ROS_INFO("角速度x: %f\n", imumsg.angular_velocity.x);
+    // ROS_INFO("角速度y: %f\n", imumsg.angular_velocity.y);
+    // ROS_INFO("角速度z: %f\n", imumsg.angular_velocity.z);
+
+    //accelupate在Compstart之前调用
+
+    //rad/s, 传入的角度单位
+    cf.CompGyroUpdate((float)imumsg.angular_velocity.x, (float)imumsg.angular_velocity.y, (float)imumsg.angular_velocity.z);
+    cf.CompAccelUpdate((float)imumsg.linear_acceleration.x, (float)imumsg.linear_acceleration.y,(float)imumsg.linear_acceleration.z);
+    //cf.CompAnglesGet();
+
+        // Complementary Filter Start
+        // Description:
+        //      Should be called once before CompUpdate can be called at the next
+        //      interval. CompAccelUpdate must be called before this function.
+        //      This function helps the filter to converge faster. If this function
+        //      is not called, the filter will still converge, but it will take
+        //      longer initially.
+        // Parameters:
+        //      None.
+        // Returns:
+        //      None.
+        //CompStart 在CompUpdate 之前调用
+    cf.CompStart();
+    cf.CompUpdate();
+    cf.CompAnglesGet((float*)&euler_comp_filter_data.pitch_e6,(float*)&euler_comp_filter_data.roll_e6);
+
+    eulermsg_comp_filter.vector.x  = (int) euler_comp_filter_data.pitch_e6 * 1e-6;
+    eulermsg_comp_filter.vector.y  = (int) euler_comp_filter_data.roll_e6 * 1e-6;
+    eulermsg_comp_filter.vector.z  = 0;
 
     IMU_pub.publish(imumsg);
     Euler_pub.publish(eulermsg);
+    Euler_comp_filter_pub.publish(eulermsg_comp_filter);
     yaww += (imumsg.angular_velocity.z - 1.1505821405593758e-05)*0.005;
     std::cout<<"yaw "<<yaww<<std::endl;
     std::cout<<"["<<imumsg.header.stamp<<"] "<< "angle: "<<y_msg.euler->pitch_e6*1e-6<<" "<<y_msg.euler->roll_e6*1e-6<<" "<<y_msg.euler->yaw_e6*1e-6<<std::endl;
@@ -258,8 +307,10 @@ int main(int argc, char ** argv){
     std::string device = "/dev/ttyUSB0";
     std::string imu_topic = "/imu/data_raw";
     std::string euler_topic = "/imu/euler_raw";
+    std::string euler_comp_filter_topic = "/imu/euler_comp_filter";
     IMU_pub = n.advertise<sensor_msgs::Imu>(imu_topic, 100);
     Euler_pub = n.advertise<geometry_msgs::Vector3Stamped>(euler_topic, 100);
+    Euler_comp_filter_pub = n.advertise<geometry_msgs::Vector3Stamped>(euler_comp_filter_topic, 100);
     n_private.param<int>("baud_rate", baud_rate, 460800);
 
     n_private.param<std::string>("device", device, "/dev/ttyUSB0");

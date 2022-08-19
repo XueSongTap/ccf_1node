@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/yesense_driver_node.dir/src/serial/serial.c.o"
+  "CMakeFiles/yesense_driver_node.dir/src/six_axis_comp_filter/six_axis_comp_filter.cpp.o"
   "CMakeFiles/yesense_driver_node.dir/src/yesense_driver_node.cpp.o"
   "/home/yxc/catkin_ws3/devel/lib/yesense_driver/yesense_driver_node.pdb"
   "/home/yxc/catkin_ws3/devel/lib/yesense_driver/yesense_driver_node"
