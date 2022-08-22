@@ -1,2 +1,2 @@
 yesense_driver
--DCATKIN_DEVEL_PREFIX=/home/yxc/catkin_ws3/devel -DCMAKE_INSTALL_PREFIX=/home/yxc/catkin_ws3/install -G Unix Makefiles
+-DCMAKE_BUILD_TYPE=Debug -DCATKIN_DEVEL_PREFIX=/home/yxc/catkin_ws3/devel -DCMAKE_INSTALL_PREFIX=/home/yxc/catkin_ws3/install -G Unix Makefiles

@@ -1,0 +1,4 @@
+<launch>
+<node name = "yesense_driver_node" pkg = "yesense_driver" type = "yesense_driver_node" required = "true" output = "screen">
+</node>
+</launch>

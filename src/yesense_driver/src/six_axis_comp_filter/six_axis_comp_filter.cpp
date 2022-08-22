@@ -141,8 +141,8 @@ void CompSixAxis::CompAccelCalculate(){
     accelAngleX = FormatAccelRange(accelAngleX, Az);
     accelAngleY = FormatAccelRange(accelAngleY, Az); 
     //弧度
-    std::cout << "accelAngleX :" << accelAngleX << std::endl;
-    std::cout << "accelAngleY :" << accelAngleY << std::endl;
+    std::cout << "accelAngleX :" << accelAngleX * RAD_TO_DEG_RATIO<< std::endl;
+    std::cout << "accelAngleY :" << accelAngleY * RAD_TO_DEG_RATIO << std::endl;
 }
 // 检查加速度计算的方位角是否在0-2Pi
 // Check to see which quadrant of the unit circle the angle lies in
@@ -202,7 +202,7 @@ float CompSixAxis::CompFilterProcess(float compAngle, float accelAngle, float om
     //积分
     // Integrate the gyroscope's angular velocity reading to get an angle
     gyroAngle = compAngle + omega * deltaT;
-
+    std::cout << "gyroAngle: " <<  gyroAngle * RAD_TO_DEG_RATIO<< std::endl;
 
     //互补滤波
     // Weighting is applied to the gyroscope's angular position and
@@ -213,6 +213,7 @@ float CompSixAxis::CompFilterProcess(float compAngle, float accelAngle, float om
     // 角度调整一致
     // Format the Comp. Angle to lie in the range of 0 to 2*pi
     compAngle = FormatRange0to2PI(compAngle);
+    std::cout << "compAngle: " <<  compAngle * RAD_TO_DEG_RATIO<< std::endl;
 
     return compAngle;
 }

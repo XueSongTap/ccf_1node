@@ -6,11 +6,9 @@
 #include "six_axis_comp_filter/six_axis_comp_filter.h"
 //imu message 没有euler data ，使用 vector3stamped, 带时间， x,y, z 三个数据
 /*
-
 # This represents a Vector3 with reference coordinate frame and timestamp
 Header header
 Vector3 vector
-
 */
 
 
@@ -245,13 +243,13 @@ size_t yesense_process(const unsigned char * buf, size_t len){
     float delteTime = 1/400;
     float tau = 0.06;
     CompSixAxis cf(delteTime,tau);
-    // ROS_INFO("角速度x: %f\n", imumsg.angular_velocity.x);
-    // ROS_INFO("角速度y: %f\n", imumsg.angular_velocity.y);
-    // ROS_INFO("角速度z: %f\n", imumsg.angular_velocity.z);
+    ROS_INFO("angular velocity x: %f\n", imumsg.angular_velocity.x);
+    ROS_INFO("angular velocity y: %f\n", imumsg.angular_velocity.y);
+    ROS_INFO("angular velocity z: %f\n", imumsg.angular_velocity.z);
 
     //accelupate在Compstart之前调用
-
-    //rad/s, 传入的角度单位
+    //将角度和加速度传入
+    //rad/s, 传入的角度单位 m/s2 加速度单位
     cf.CompGyroUpdate((float)imumsg.angular_velocity.x, (float)imumsg.angular_velocity.y, (float)imumsg.angular_velocity.z);
     cf.CompAccelUpdate((float)imumsg.linear_acceleration.x, (float)imumsg.linear_acceleration.y,(float)imumsg.linear_acceleration.z);
     //cf.CompAnglesGet();
@@ -267,13 +265,15 @@ size_t yesense_process(const unsigned char * buf, size_t len){
         //      None.
         // Returns:
         //      None.
-        //CompStart 在CompUpdate 之前调用
+        //CompStart 在CompUpdate 之前调用d
     cf.CompStart();
     cf.CompUpdate();
-    cf.CompAnglesGet((float*)&euler_comp_filter_data.pitch_e6,(float*)&euler_comp_filter_data.roll_e6);
 
-    eulermsg_comp_filter.vector.x  = (int) euler_comp_filter_data.pitch_e6 * 1e-6;
-    eulermsg_comp_filter.vector.y  = (int) euler_comp_filter_data.roll_e6 * 1e-6;
+    float compAnglePitch, compAngleRoll;
+    cf.CompAnglesGet(&compAnglePitch,&compAngleRoll);
+
+    eulermsg_comp_filter.vector.x  = compAnglePitch;
+    eulermsg_comp_filter.vector.y  = compAngleRoll;
     eulermsg_comp_filter.vector.z  = 0;
 
     IMU_pub.publish(imumsg);

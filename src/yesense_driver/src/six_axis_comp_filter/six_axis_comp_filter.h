@@ -26,7 +26,7 @@
 class CompSixAxis{
 public:
 
-        //构造汉书，构造的时候传入deltaTime 和tau两个参数
+        //构造函数，构造的时候传入deltaTime 和tau两个参数
         //
         // Constructor
         // Description:
