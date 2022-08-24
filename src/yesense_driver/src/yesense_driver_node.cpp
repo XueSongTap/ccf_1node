@@ -240,13 +240,14 @@ size_t yesense_process(const unsigned char * buf, size_t len){
     struct yesense_euler euler_comp_filter_data;
        
     //Todo
-    float delteTime = 1/400;
-    float tau = 0.06;
+    float delteTime = 1.0/200.0;
+    float tau = 1;
     CompSixAxis cf(delteTime,tau);
     ROS_INFO("angular velocity x: %f\n", imumsg.angular_velocity.x);
     ROS_INFO("angular velocity y: %f\n", imumsg.angular_velocity.y);
     ROS_INFO("angular velocity z: %f\n", imumsg.angular_velocity.z);
-
+    // cf.CompStart();
+    // cf.CompUpdate();
     //accelupate在Compstart之前调用
     //将角度和加速度传入
     //rad/s, 传入的角度单位 m/s2 加速度单位
@@ -269,12 +270,22 @@ size_t yesense_process(const unsigned char * buf, size_t len){
     cf.CompStart();
     cf.CompUpdate();
 
-    float compAnglePitch, compAngleRoll;
-    cf.CompAnglesGet(&compAnglePitch,&compAngleRoll);
+    float compAnglePitch, compAngleRoll, compAngleYaww;
+    cf.CompAnglesGet(&compAnglePitch,&compAngleRoll, &compAngleYaww);
 
+    if (compAnglePitch >= 90 && compAnglePitch < 270){
+        compAnglePitch -= 180;
+    }else if (compAnglePitch >= 270)  compAnglePitch -=360;  
+    
+    if (compAngleRoll > 180) compAngleRoll -= 360;
+    if (compAngleYaww > 180) compAngleYaww -= 360;
+
+    // if(compAnglePitch > -90 && compAnglePitch < 0) compAnglePitch = -compAnglePitch;
+    // else if(compAnglePitch < -90) compAnglePitch += 180;
+    // else if(compAnglePitch > 90) compAnglePitch -=180;
     eulermsg_comp_filter.vector.x  = compAnglePitch;
     eulermsg_comp_filter.vector.y  = compAngleRoll;
-    eulermsg_comp_filter.vector.z  = 0;
+    eulermsg_comp_filter.vector.z  = compAngleYaww;
 
     IMU_pub.publish(imumsg);
     Euler_pub.publish(eulermsg);
@@ -323,7 +334,7 @@ int main(int argc, char ** argv){
     }
     SERIAL fd = serial_open(device.c_str(), br);
     if (fd == INVALID_SERIAL) {
-        ROS_ERROR("cwnnot open device=%s", device.c_str());
+        ROS_ERROR("cannot open device=%s", device.c_str());
         return 1;
     }   
 

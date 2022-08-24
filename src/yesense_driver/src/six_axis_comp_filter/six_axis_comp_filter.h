@@ -96,7 +96,7 @@ public:
         //      None.
         //
     //输出角度
-    void CompAnglesGet(float *XAngle, float*YAngle);
+    void CompAnglesGet(float *XAngle, float*YAngle, float* ZAngle);
 
         //
         // Complementary Filter Accelerometer Update
@@ -201,6 +201,8 @@ private:
         // Complimentary Filter - This is where the magic happens.
         //
     float CompFilterProcess(float compAngle, float accelAngle, float omega);
+    float CompFilterProcessZ(float compAngle, float omega);
+
 };
 
 #endif// SIX_AXIS_COMP_FILTER_H

@@ -74,7 +74,7 @@ void CompSixAxis::CompStart(){
     // Initialize filter to accel angles
     compAngleX = accelAngleX;
     compAngleY = accelAngleY;
-    //compAngleZ = accelAngleZ;
+    compAngleZ = accelAngleZ;
 }
 
 void CompSixAxis::CompUpdate(){
@@ -92,11 +92,11 @@ void CompSixAxis::CompUpdate(){
     // onto the Y axis and its sense of direction is already correct.
     compAngleY = CompFilterProcess(compAngleY, accelAngleY, Gx);
     //?
-    //compAngleZ = CompFilterProcess(compAngleY, accelAngleY, Gx);
+    compAngleZ = CompFilterProcessZ(compAngleZ, Gz);
 
 }
 
-void CompSixAxis::CompAnglesGet(float *XAngle, float *YAngle){
+void CompSixAxis::CompAnglesGet(float *XAngle, float *YAngle, float *ZAngle){
 
     //如果不需要某个angle，使用这个函数的时候就传入0， 这里就判断下地址是否为0
     // Transfer class's updated comp. filter's angles
@@ -110,9 +110,9 @@ void CompSixAxis::CompAnglesGet(float *XAngle, float *YAngle){
     }
 
 
-    // if(ZAngle){
-    //     *ZAngle = compAngleZ;
-    // }
+    if(ZAngle){
+        *ZAngle = compAngleZ * RAD_TO_DEG_RATIO;
+    }
 }
 
 void CompSixAxis::CompAccelUpdate(float accelX, float accelY, float accelZ){
@@ -137,12 +137,17 @@ void CompSixAxis::CompAccelCalculate(){
     accelAngleX = atan2f(Ax, sqrtf(SQRE(Ay)  + SQRE(Az)));
 
     accelAngleY = atan2f(Ay, sqrtf(SQRE(Ax) + SQRE(Az)));
+    
 
     accelAngleX = FormatAccelRange(accelAngleX, Az);
     accelAngleY = FormatAccelRange(accelAngleY, Az); 
+    // accelAngleZ = FormatAccelRange(accelAngleZ, Az);
+
     //弧度
     std::cout << "accelAngleX :" << accelAngleX * RAD_TO_DEG_RATIO<< std::endl;
     std::cout << "accelAngleY :" << accelAngleY * RAD_TO_DEG_RATIO << std::endl;
+    // std::cout << "accelAngleY :" << accelAngleY * RAD_TO_DEG_RATIO << std::endl;
+
 }
 // 检查加速度计算的方位角是否在0-2Pi
 // Check to see which quadrant of the unit circle the angle lies in
@@ -194,6 +199,7 @@ float CompSixAxis::FormatRange0to2PI(float compAngle){
 // Complimentary Filter - This is where the magic happens.
 //
 float CompSixAxis::CompFilterProcess(float compAngle, float accelAngle, float omega){
+    
     float gyroAngle;
     //format
     //speed up filter convergence
@@ -202,6 +208,7 @@ float CompSixAxis::CompFilterProcess(float compAngle, float accelAngle, float om
     //积分
     // Integrate the gyroscope's angular velocity reading to get an angle
     gyroAngle = compAngle + omega * deltaT;
+
     std::cout << "gyroAngle: " <<  gyroAngle * RAD_TO_DEG_RATIO<< std::endl;
 
     //互补滤波
@@ -215,5 +222,19 @@ float CompSixAxis::CompFilterProcess(float compAngle, float accelAngle, float om
     compAngle = FormatRange0to2PI(compAngle);
     std::cout << "compAngle: " <<  compAngle * RAD_TO_DEG_RATIO<< std::endl;
 
+    // compAngle = compAngle + omega *deltaT;
+
+
+    return compAngle;
+}
+
+
+float CompSixAxis::CompFilterProcessZ(float compAngle, float omega){
+    std::cout << "omega: " << omega * 1000<< std::endl;
+    std::cout << "deltaT: " << deltaT * 1000<< std::endl;
+
+    compAngle += omega *deltaT;
+
+    std::cout << "compAngleZ: " << compAngle * RAD_TO_DEG_RATIO << std::endl;
     return compAngle;
 }
