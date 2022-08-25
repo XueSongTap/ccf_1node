@@ -92,8 +92,6 @@ void CompSixAxis::CompUpdate(){
     // onto the Y axis and its sense of direction is already correct.
     compAngleY = CompFilterProcess(compAngleY, accelAngleY, Gx);
     //?
-    compAngleZ = CompFilterProcessZ(compAngleZ, Gz);
-
 }
 
 void CompSixAxis::CompAnglesGet(float *XAngle, float *YAngle){
@@ -228,18 +226,3 @@ float CompSixAxis::CompFilterProcess(float compAngle, float accelAngle, float om
     return compAngle;
 }
 
-
-float CompSixAxis::CompFilterProcessZ(float compAngle, float omega){
-    std::cout << "omega: " << omega * 1000<< std::endl;
-    std::cout << "deltaT: " << deltaT * 1000<< std::endl;
-    //to do
-    if (abs(compAngle - 0.0f) < 1e-5){
-        std::cout << "compAngleZ  == 0"  << std::endl;
-    }
-    // compAngle = compAngle + omega *deltaT;
-    compAngle += 1; 
-
-
-    std::cout << "compAngleZ: " << compAngle * RAD_TO_DEG_RATIO << std::endl;
-    return compAngle;
-}
