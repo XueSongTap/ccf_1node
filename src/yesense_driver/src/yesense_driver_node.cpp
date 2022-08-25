@@ -87,6 +87,7 @@ static void yesense_checksum(const unsigned char *buf, size_t sz, unsigned char 
 
 
 //作为输出使用检查数据
+float compAngleYaww = 0.0;
 double yaww = 0.0;
 static void yesense_msg_parse(const unsigned char *buf, size_t sz, struct yesense_msg* msg){
     msg -> accel = NULL;
@@ -210,10 +211,14 @@ size_t yesense_process(const unsigned char * buf, size_t len){
     imumsg.linear_acceleration.z = (double)y_msg.accel->az_e6*1e-6;
 
 
+    //角速度，转换成了弧度
+    // imumsg.angular_velocity.x = (double)y_msg.angular->wx_e6*1e-6*M_PI/180;
+    // imumsg.angular_velocity.y = (double)y_msg.angular->wy_e6*1e-6*M_PI/180;
+    // imumsg.angular_velocity.z = (double)y_msg.angular->wz_e6*1e-6*M_PI/180;
 
-    imumsg.angular_velocity.x = (double)y_msg.angular->wx_e6*1e-6*M_PI/180;
-    imumsg.angular_velocity.y = (double)y_msg.angular->wy_e6*1e-6*M_PI/180;
-    imumsg.angular_velocity.z = (double)y_msg.angular->wz_e6*1e-6*M_PI/180;
+    imumsg.angular_velocity.x = (double)y_msg.angular->wx_e6*1e-6;
+    imumsg.angular_velocity.y = (double)y_msg.angular->wy_e6*1e-6;
+    imumsg.angular_velocity.z = (double)y_msg.angular->wz_e6*1e-6;
 
     imumsg.orientation.w = (double)y_msg.quaternion->q_e6[0]*1e-6;
     imumsg.orientation.x = (double)y_msg.quaternion->q_e6[1]*1e-6;
@@ -227,7 +232,9 @@ size_t yesense_process(const unsigned char * buf, size_t len){
     eulermsg.vector.x = (double)y_msg.euler->pitch_e6 * 1e-6;
     eulermsg.vector.y = (double)y_msg.euler->roll_e6 * 1e-6;
     eulermsg.vector.z = (double)y_msg.euler->yaw_e6 * 1e-6;
-
+    // eulermsg.vector.x = (double)y_msg.euler->pitch_e6;
+    // eulermsg.vector.y = (double)y_msg.euler->roll_e6;
+    // eulermsg.vector.z = (double)y_msg.euler->yaw_e6;
     /*
 
     struct yesense_euler {
@@ -270,8 +277,10 @@ size_t yesense_process(const unsigned char * buf, size_t len){
     cf.CompStart();
     cf.CompUpdate();
 
-    float compAnglePitch, compAngleRoll, compAngleYaww;
-    cf.CompAnglesGet(&compAnglePitch,&compAngleRoll, &compAngleYaww);
+    
+    float compAnglePitch, compAngleRoll;
+    cf.CompAnglesGet(&compAnglePitch,&compAngleRoll);
+    compAngleYaww += (imumsg.angular_velocity.z)*0.005;
 
     if (compAnglePitch >= 90 && compAnglePitch < 270){
         compAnglePitch -= 180;
@@ -290,7 +299,7 @@ size_t yesense_process(const unsigned char * buf, size_t len){
     IMU_pub.publish(imumsg);
     Euler_pub.publish(eulermsg);
     Euler_comp_filter_pub.publish(eulermsg_comp_filter);
-    yaww += (imumsg.angular_velocity.z - 1.1505821405593758e-05)*0.005;
+    yaww += (imumsg.angular_velocity.z)*0.005;
     std::cout<<"yaw "<<yaww<<std::endl;
     std::cout<<"["<<imumsg.header.stamp<<"] "<< "angle: "<<y_msg.euler->pitch_e6*1e-6<<" "<<y_msg.euler->roll_e6*1e-6<<" "<<y_msg.euler->yaw_e6*1e-6<<std::endl;
     

@@ -96,7 +96,7 @@ public:
         //      None.
         //
     //输出角度
-    void CompAnglesGet(float *XAngle, float*YAngle, float* ZAngle);
+    void CompAnglesGet(float *XAngle, float*YAngle);
 
         //
         // Complementary Filter Accelerometer Update

@@ -26,7 +26,7 @@
         //      output. In exchange, it will drift further from the correct angular
         //      position.
         // Returns:
-        //      None.
+        //      None.   
         //
 CompSixAxis::CompSixAxis(float deltaTime, float tau){
     //deltaTime 保存到类中
@@ -74,7 +74,7 @@ void CompSixAxis::CompStart(){
     // Initialize filter to accel angles
     compAngleX = accelAngleX;
     compAngleY = accelAngleY;
-    compAngleZ = accelAngleZ;
+    // compAngleZ = accelAngleZ;
 }
 
 void CompSixAxis::CompUpdate(){
@@ -96,7 +96,7 @@ void CompSixAxis::CompUpdate(){
 
 }
 
-void CompSixAxis::CompAnglesGet(float *XAngle, float *YAngle, float *ZAngle){
+void CompSixAxis::CompAnglesGet(float *XAngle, float *YAngle){
 
     //如果不需要某个angle，使用这个函数的时候就传入0， 这里就判断下地址是否为0
     // Transfer class's updated comp. filter's angles
@@ -110,9 +110,9 @@ void CompSixAxis::CompAnglesGet(float *XAngle, float *YAngle, float *ZAngle){
     }
 
 
-    if(ZAngle){
-        *ZAngle = compAngleZ * RAD_TO_DEG_RATIO;
-    }
+    // if(ZAngle){
+    //     *ZAngle = compAngleZ * RAD_TO_DEG_RATIO;
+    // }
 }
 
 void CompSixAxis::CompAccelUpdate(float accelX, float accelY, float accelZ){
@@ -232,8 +232,13 @@ float CompSixAxis::CompFilterProcess(float compAngle, float accelAngle, float om
 float CompSixAxis::CompFilterProcessZ(float compAngle, float omega){
     std::cout << "omega: " << omega * 1000<< std::endl;
     std::cout << "deltaT: " << deltaT * 1000<< std::endl;
+    //to do
+    if (abs(compAngle - 0.0f) < 1e-5){
+        std::cout << "compAngleZ  == 0"  << std::endl;
+    }
+    // compAngle = compAngle + omega *deltaT;
+    compAngle += 1; 
 
-    compAngle += omega *deltaT;
 
     std::cout << "compAngleZ: " << compAngle * RAD_TO_DEG_RATIO << std::endl;
     return compAngle;
